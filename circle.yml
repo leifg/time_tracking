@@ -20,7 +20,7 @@ test:
     - script/ci/tests.sh
 
 deployment:
-  staging:
+  production:
     branch: master
     commands:
       - npm run semantic-release || true
