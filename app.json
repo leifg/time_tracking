@@ -1,0 +1,15 @@
+{
+  "name": "TimeTracking",
+  "description": "Integrate different time trackign tools",
+  "repository": "https://github.com/leifg/time_tracking",
+  "keywords": ["elixir", "erlang", "phoenix", "time_tracking", "excel", "toggl", "FastBill"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/HashNuke/heroku-buildpack-elixir.git"
+    },
+    {
+      "url": "https://github.com/gjaldon/heroku-buildpack-phoenix-static.git"
+    }
+  ],
+  "env": {}
+}
