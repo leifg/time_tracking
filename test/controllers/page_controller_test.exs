@@ -3,6 +3,6 @@ defmodule TimeTracking.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    assert json_response(conn, 200) == %{"message" => "This is an API"}
   end
 end
