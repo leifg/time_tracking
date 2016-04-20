@@ -1,0 +1,26 @@
+machine:
+  node:
+    version: 5.8.0
+  environment:
+    GH_REPOSITORY_URL: https://github.com/leifg/time_tracking
+
+dependencies:
+  pre:
+    - script/ci/prepare.sh
+    - NODE_ENV=development npm prune
+    - NODE_ENV=development npm install
+  cache_directories:
+    - ~/dependencies
+    - ~/.mix
+    - _build
+    - deps
+
+test:
+  override:
+    - script/ci/tests.sh
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - npm run semantic-release || true

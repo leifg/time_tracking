@@ -9,6 +9,8 @@ erl_crash.dump
 
 # Static artifacts
 /node_modules
+/.npmrc
+/npm-debug.log
 
 # Since we are building assets from web/static,
 # we ignore priv/static. You may want to comment
