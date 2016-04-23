@@ -10,4 +10,10 @@ defmodule TimeTracking.Router do
 
     get "/", PageController, :index
   end
+
+  scope "/clients", TimeTracking do
+    pipe_through :api
+
+    post "/", ClientController, :create
+  end
 end
