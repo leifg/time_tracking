@@ -13,7 +13,7 @@ defmodule TimeTracking.Fastbill.Http do
     body = %{
       SERVICE: "customer.create",
       DATA: %{
-        CUSTOMER_NUMBER: id,
+        CUSTOMER_NUMBER: "toggl:#{id}",
         CUSTOMER_TYPE: @customer_type,
         ORGANIZATION: name
       }
