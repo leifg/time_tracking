@@ -12,6 +12,8 @@ config :time_tracking, TimeTracking.Endpoint,
   code_reloader: true,
   check_origin: false
 
+config :time_tracking, :fastbill_api, TimeTracking.Fastbill.InMemory
+
 # Watch static and templates for browser reloading.
 config :time_tracking, TimeTracking.Endpoint,
   live_reload: [

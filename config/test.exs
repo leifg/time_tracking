@@ -6,5 +6,7 @@ config :time_tracking, TimeTracking.Endpoint,
   http: [port: 4001],
   server: false
 
+config :time_tracking, :fastbill_api, TimeTracking.Fastbill.InMemory
+
 # Print only warnings and errors during test
 config :logger, level: :warn

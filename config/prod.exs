@@ -16,6 +16,8 @@ config :time_tracking, TimeTracking.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/manifest.json"
 
+config :time_tracking, :fastbill_api, TimeTracking.Fastbill.Http
+
 # Do not print debug messages in production
 config :logger, level: :info
 
