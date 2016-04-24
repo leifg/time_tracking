@@ -1,4 +1,4 @@
-defmodule TimeTracking.ClientControllerTest do
+defmodule TimeTracking.FastbillControllerTest do
   use TimeTracking.ConnCase
 
   @valid_attrs %{"name": "Shaidy & Co", "id": "1426720", "at": "2016-04-20T10:23:33+00:00"}
