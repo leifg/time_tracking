@@ -4,7 +4,9 @@ defmodule TimeTracking.Fastbill.Http do
   @endpoint "https://my.fastbill.com/api/1.0/api.php"
   @customer_type "business"
   @headers %{"Accept" => "application/json"}
-  @auth [basic_auth: {System.get_env("FASTBILL_EMAIL"), System.get_env("FASTBILL_TOKEN")}]
+  @fastbill_email Application.get_env(:time_tracking, :fastbill_email)
+  @fastbill_token Application.get_env(:time_tracking, :fastbill_token)
+  @auth [basic_auth: {@fastbill_email, @fastbill_token}]
 
   def create(%{name: name, id:  id, at: _at}) do
     HTTPoison.start
