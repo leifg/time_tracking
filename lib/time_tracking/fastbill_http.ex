@@ -20,9 +20,11 @@ defmodule TimeTracking.Fastbill.Http do
     }
     case HTTPoison.post(@endpoint, Poison.encode!(body), @headers, [hackney: @auth]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        %{id: Poison.decode!(body)["RESPONSE"]["CUSTOMER_ID"] }
+        %{status: "created", id: Poison.decode!(body)["RESPONSE"]["CUSTOMER_ID"] }
+      {:ok, %HTTPoison.Response{status_code: 401}} ->
+        %{id: -1, status: "unauthorized"}
       {:error, %HTTPoison.Error{reason: reason}} ->
-        %{status: "error", message: reason}
+        %{id: -1, status: "error", message: reason}
     end
   end
 end

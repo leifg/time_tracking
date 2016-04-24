@@ -10,7 +10,7 @@ defmodule TimeTracking.ClientControllerTest do
   test "creates and renders resource when data is valid", %{conn: conn} do
     conn = post conn, "/clients", @valid_attrs
     response = json_response(conn, 200)
-    assert response["message"] == "created"
+    assert response["status"] == "created"
     assert response["id"] == "1"
   end
 end
