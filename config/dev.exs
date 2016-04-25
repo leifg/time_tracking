@@ -12,7 +12,7 @@ config :time_tracking, TimeTracking.Endpoint,
   code_reloader: true,
   check_origin: false
 
-config :time_tracking, :fastbill_api, TimeTracking.Fastbill.InMemory
+config :time_tracking, :fastbill_api, TimeTracking.Fastbill.Http
 
 # Watch static and templates for browser reloading.
 config :time_tracking, TimeTracking.Endpoint,
@@ -32,3 +32,5 @@ config :logger, :console, format: "[$level] $message\n"
 # Do not configure such in production as keeping
 # and calculating stacktraces is usually expensive.
 config :phoenix, :stacktrace_depth, 20
+
+import_config "dev.secret.exs"
