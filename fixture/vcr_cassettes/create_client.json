@@ -1,0 +1,35 @@
+[
+  {
+    "request": {
+      "body": "{\"SERVICE\":\"customer.create\",\"DATA\":{\"ORGANIZATION\":\"Shaidy & Co\",\"CUSTOMER_TYPE\":\"business\",\"CUSTOMER_NUMBER\":\"toggl:18606629\"}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "basic_auth": [
+          "<USER>",
+          "<TOKEN>"
+        ]
+      },
+      "request_body": "",
+      "url": "https://my.fastbill.com/api/1.0/api.php"
+    },
+    "response": {
+      "body": "{\"REQUEST\":{\"SERVICE\":\"customer.create\",\"DATA\":{\"ORGANIZATION\":\"Shaidy & Co\",\"CUSTOMER_TYPE\":\"business\",\"CUSTOMER_NUMBER\":\"toggl:18606629\"}},\"RESPONSE\":{\"STATUS\":\"success\",\"CUSTOMER_ID\":2163649}}",
+      "headers": {
+        "Date": "Wed, 27 Apr 2016 22:17:40 GMT",
+        "Server": "Apache",
+        "Cache-Control": "no-store",
+        "Last-Modified": "Wed, 27 Apr 2016 22:17:40 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "195",
+        "Connection": "close",
+        "Content-Type": "text/plain; charset=UTF-8"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

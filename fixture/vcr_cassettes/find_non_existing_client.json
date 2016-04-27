@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"SERVICE\":\"customer.get\",\"FILTER\":{\"CUSTOMER_NUMBER\":\"toggl:18606630\"}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "basic_auth": [
+          "<USER>",
+          "<TOKEN>"
+        ]
+      },
+      "request_body": "",
+      "url": "https://my.fastbill.com/api/1.0/api.php"
+    },
+    "response": {
+      "body": "{\"REQUEST\":{\"SERVICE\":\"customer.get\",\"FILTER\":{\"CUSTOMER_NUMBER\":\"toggl:18606630\"}},\"RESPONSE\":{\"CUSTOMERS\":[]}}",
+      "headers": {
+        "Date": "Wed, 27 Apr 2016 22:12:19 GMT",
+        "Server": "Apache",
+        "Cache-Control": "no-store",
+        "Last-Modified": "Wed, 27 Apr 2016 22:12:19 GMT",
+        "P3P": "CP=\"CAO PSA OUR\"",
+        "Access-Control-Allow-Origin": "*",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "112",
+        "Connection": "close",
+        "Content-Type": "text/plain; charset=UTF-8"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
