@@ -1,0 +1,35 @@
+[
+  {
+    "request": {
+      "body": "{\"SERVICE\":\"customer.get\",\"FILTER\":{\"CUSTOMER_NUMBER\":\"toggl:18606629\"}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "basic_auth": [
+          "<USER>",
+          "<TOKEN>"
+        ]
+      },
+      "request_body": "",
+      "url": "https://my.fastbill.com/api/1.0/api.php"
+    },
+    "response": {
+      "body": "{\"REQUEST\":{\"SERVICE\":\"customer.get\",\"FILTER\":{\"CUSTOMER_NUMBER\":\"toggl:18606629\"}},\"RESPONSE\":{\"CUSTOMERS\":[{\"CUSTOMER_ID\":\"2163649\",\"CUSTOMER_NUMBER\":\"toggl:18606629\",\"DAYS_FOR_PAYMENT\":\"14\",\"CREATED\":\"2016-04-25 20:04:33\",\"PAYMENT_TYPE\":\"1\",\"BANK_NAME\":\"\",\"BANK_ACCOUNT_NUMBER\":\"\",\"BANK_CODE\":\"\",\"BANK_ACCOUNT_OWNER\":\"\",\"BANK_IBAN\":\"\",\"BANK_BIC\":\"\",\"BANK_ACCOUNT_MANDATE_REFERENCE\":\"\",\"SHOW_PAYMENT_NOTICE\":\"1\",\"ACCOUNT_RECEIVABLE\":\"\",\"CUSTOMER_TYPE\":\"business\",\"TOP\":\"0\",\"NEWSLETTER_OPTIN\":\"0\",\"ORGANIZATION\":\"Shaidy & Co\",\"POSITION\":\"\",\"SALUTATION\":\"\",\"FIRST_NAME\":\"\",\"LAST_NAME\":\"\",\"ADDRESS\":\"\",\"ADDRESS_2\":\"\",\"ZIPCODE\":\"\",\"CITY\":\"\",\"COUNTRY_CODE\":[],\"SECONDARY_ADDRESS\":\"\",\"PHONE\":\"\",\"PHONE_2\":\"\",\"FAX\":\"\",\"MOBILE\":\"\",\"EMAIL\":\"\",\"VAT_ID\":\"\",\"CURRENCY_CODE\":\"USD\",\"LASTUPDATE\":\"2016-04-25 20:04:33\",\"TAGS\":\"\"}]}}",
+      "headers": {
+        "Date": "Wed, 27 Apr 2016 22:07:13 GMT",
+        "Server": "Apache",
+        "Cache-Control": "no-store",
+        "Last-Modified": "Wed, 27 Apr 2016 22:07:13 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "818",
+        "Connection": "close",
+        "Content-Type": "text/plain; charset=UTF-8"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
