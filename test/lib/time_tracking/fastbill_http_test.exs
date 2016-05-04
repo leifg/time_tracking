@@ -34,9 +34,10 @@ defmodule TimeTracking.FastbillHttpTest do
 
   test "create project" do
     use_cassette "create_project" do
-      {:ok, project} = TimeTracking.Fastbill.Http.create_project(%{client_id: "2185334", name: "Hide the Money", at: "2016-04-27T22:17:01+00:00"})
-      assert project.id == "104236"
+      {:ok, project} = TimeTracking.Fastbill.Http.create_project(%{client_id: "2185334", external_id: "18606629", name: "Hide the Money", at: "2016-04-27T22:17:01+00:00"})
+      assert project.id == "104248"
       assert project.name == "Hide the Money"
+      assert project.external_id == "toggl:18606629"
     end
   end
 

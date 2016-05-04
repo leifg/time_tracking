@@ -43,16 +43,17 @@ defmodule TimeTracking.Fastbill.Http do
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
-  def create_project(%{client_id: client_id, name: name, at: _at}) do
+  def create_project(%{client_id: client_id, external_id: external_id, name: name, at: _at}) do
     HTTPoison.start
     body = %{
       SERVICE: "project.create",
       DATA: %{
         PROJECT_NAME: name,
+        PROJECT_NUMBER: "toggl:#{external_id}",
         CUSTOMER_ID: client_id
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: res["RESPONSE"]["PROJECT_NUMBER"], name: name }} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: "toggl:#{external_id}", name: name }} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 

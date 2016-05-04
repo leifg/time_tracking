@@ -15,7 +15,7 @@ defmodule TimeTracking.FastbillController do
   def create_project(conn, %{"id" => external_id, "name" => name, "cid" => client_id, "at" => at}) do
     api_return = case @fastbill_api.find_project(%{external_id: external_id, client_id: client_id}) do
       {:not_found, _} ->
-        @fastbill_api.create_project(%{client_id: client_id, name: name, at: at})
+        @fastbill_api.create_project(%{client_id: client_id, external_id: external_id, name: name, at: at})
       res ->
         res
     end

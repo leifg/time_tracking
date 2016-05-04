@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"SERVICE\":\"project.create\",\"DATA\":{\"PROJECT_NAME\":\"Hide the Money\",\"CUSTOMER_ID\":\"2185334\"}}",
+      "body": "{\"SERVICE\":\"project.create\",\"DATA\":{\"PROJECT_NUMBER\":\"toggl:18606629\",\"PROJECT_NAME\":\"Hide the Money\",\"CUSTOMER_ID\":\"2185334\"}}",
       "headers": {
         "Accept": "application/json"
       },
@@ -16,16 +16,16 @@
       "url": "https://my.fastbill.com/api/1.0/api.php"
     },
     "response": {
-      "body": "{\"REQUEST\":{\"SERVICE\":\"project.create\",\"DATA\":{\"PROJECT_NAME\":\"Hide the Money\",\"CUSTOMER_ID\":\"2185334\"}},\"RESPONSE\":{\"STATUS\":\"success\",\"PROJECT_ID\":104236}}",
+      "body": "{\"REQUEST\":{\"SERVICE\":\"project.create\",\"DATA\":{\"PROJECT_NUMBER\":\"toggl:18606629\",\"PROJECT_NAME\":\"Hide the Money\",\"CUSTOMER_ID\":\"2185334\"}},\"RESPONSE\":{\"STATUS\":\"success\",\"PROJECT_ID\":104248}}",
       "headers": {
-        "Date": "Wed, 04 May 2016 17:08:27 GMT",
+        "Date": "Wed, 04 May 2016 20:20:46 GMT",
         "Server": "Apache",
         "Cache-Control": "no-store",
-        "Last-Modified": "Wed, 04 May 2016 17:08:27 GMT",
+        "Last-Modified": "Wed, 04 May 2016 20:20:46 GMT",
         "P3P": "CP=\"CAO PSA OUR\"",
         "Access-Control-Allow-Origin": "*",
         "Vary": "Accept-Encoding",
-        "Content-Length": "157",
+        "Content-Length": "191",
         "Connection": "close",
         "Content-Type": "text/plain; charset=UTF-8"
       },

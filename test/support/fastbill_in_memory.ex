@@ -21,7 +21,7 @@ defmodule TimeTracking.Fastbill.InMemory do
     {:not_found, %{message: "project of client '#{client_id}' with ID '#{id}' not found"}}
   end
 
-  def create_project(%{client_id: "client_id", name: "New Project"}) do
+  def create_project(%{client_id: "client_id", external_id: "toggl_id_not_found", name: "New Project"}) do
     {:ok, %{id: "project_2", external_id: "toggl_id_not_found", name: "New Project"}}
   end
 end
