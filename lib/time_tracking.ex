@@ -9,7 +9,6 @@ defmodule TimeTracking do
     children = [
       # Start the endpoint when the application starts
       supervisor(TimeTracking.Endpoint, []),
-      # Start the Ecto repository
       # Here you could define other workers and supervisors as children
       # worker(TimeTracking.Worker, [arg1, arg2, arg3]),
     ]

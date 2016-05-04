@@ -43,6 +43,38 @@ defmodule TimeTracking.Fastbill.Http do
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
+  def create_project(%{client_id: client_id, name: name, at: _at}) do
+    HTTPoison.start
+    body = %{
+      SERVICE: "project.create",
+      DATA: %{
+        PROJECT_NAME: name,
+        CUSTOMER_ID: client_id
+      }
+    }
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), name: name }} end
+    http_call(@endpoint, body, @headers, @auth, process_res)
+  end
+
+  def find_project(%{client_id: client_id, id: id}) do
+    HTTPoison.start
+    body = %{
+      SERVICE: "project.get",
+      FILTER: %{
+        CUSTOMER_ID: client_id,
+      }
+    }
+    process_res = fn(res) ->
+      case Enum.find(res["RESPONSE"]["PROJECTS"], fn(elem) -> elem["PROJECT_NUMBER"] == "toggl:#{id}"; end) do
+        nil ->
+          {:not_found, %{}}
+        project ->
+          {:ok, %{id: project["PROJECT_ID"], name: project["PROJECT_NAME"]}}
+      end
+    end
+    http_call(@endpoint, body, @headers, @auth, process_res)
+  end
+
   defp http_call(endpoint, request_body, headers, auth, process_fun) do
     case HTTPoison.post(endpoint, Poison.encode!(request_body), headers, [hackney: auth]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->

@@ -16,4 +16,10 @@ defmodule TimeTracking.Router do
 
     post "/", FastbillController, :create_client
   end
+
+  scope "/projects", TimeTracking do
+    pipe_through :api
+
+    post "/", FastbillController, :create_project
+  end
 end

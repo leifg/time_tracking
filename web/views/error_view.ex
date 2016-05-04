@@ -4,4 +4,8 @@ defmodule TimeTracking.ErrorView do
   def render("error.json", %{error: error}) do
     %{message: error.message}
   end
+
+  def render("500.json", %{error: error}) do
+    %{message: error.message}
+  end
 end
