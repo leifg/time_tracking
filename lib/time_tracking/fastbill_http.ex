@@ -14,12 +14,12 @@ defmodule TimeTracking.Fastbill.Http do
     body = %{
       SERVICE: "customer.create",
       DATA: %{
-        CUSTOMER_NUMBER: "toggl:#{external_id}",
+        CUSTOMER_NUMBER: external_id,
         CUSTOMER_TYPE: @customer_type,
         ORGANIZATION: name
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), external_id: "toggl:#{external_id}", name: name }} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), external_id: external_id, name: name }} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
@@ -28,7 +28,7 @@ defmodule TimeTracking.Fastbill.Http do
     body = %{
       SERVICE: "customer.get",
       FILTER: %{
-        CUSTOMER_NUMBER: "toggl:#{external_id}",
+        CUSTOMER_NUMBER: external_id,
       }
     }
     process_res = fn(res) ->
@@ -49,11 +49,11 @@ defmodule TimeTracking.Fastbill.Http do
       SERVICE: "project.create",
       DATA: %{
         PROJECT_NAME: name,
-        PROJECT_NUMBER: "toggl:#{external_id}",
+        PROJECT_NUMBER: external_id,
         CUSTOMER_ID: client_id
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: "toggl:#{external_id}", name: name }} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: external_id, name: name }} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
@@ -66,11 +66,11 @@ defmodule TimeTracking.Fastbill.Http do
       }
     }
     process_res = fn(res) ->
-      case Enum.find(res["RESPONSE"]["PROJECTS"], fn(elem) -> elem["PROJECT_NUMBER"] == "toggl:#{external_id}"; end) do
+      case Enum.find(res["RESPONSE"]["PROJECTS"], fn(elem) -> elem["PROJECT_NUMBER"] == external_id; end) do
         nil ->
           {:not_found, %{}}
         project ->
-          {:ok, %{id: project["PROJECT_ID"], external_id: "toggl:#{external_id}", name: project["PROJECT_NAME"]}}
+          {:ok, %{id: project["PROJECT_ID"], external_id: external_id, name: project["PROJECT_NAME"]}}
       end
     end
     http_call(@endpoint, body, @headers, @auth, process_res)

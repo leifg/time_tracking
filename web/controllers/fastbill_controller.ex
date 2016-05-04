@@ -3,9 +3,9 @@ defmodule TimeTracking.FastbillController do
   @fastbill_api Application.get_env(:time_tracking, :fastbill_api)
 
   def create_client(conn, %{"id" => external_id, "name" => name, "at" => at}) do
-    api_return = case @fastbill_api.find_client(%{external_id: external_id}) do
+    api_return = case @fastbill_api.find_client(%{external_id: "toggl:#{external_id}"}) do
       {:not_found, _} ->
-        @fastbill_api.create_client(%{external_id: external_id, name: name, at: at})
+        @fastbill_api.create_client(%{external_id: "toggl:#{external_id}", name: name, at: at})
       res ->
         res
     end
@@ -13,9 +13,9 @@ defmodule TimeTracking.FastbillController do
   end
 
   def create_project(conn, %{"id" => external_id, "name" => name, "cid" => client_id, "at" => at}) do
-    api_return = case @fastbill_api.find_project(%{external_id: external_id, client_id: client_id}) do
+    api_return = case @fastbill_api.find_project(%{external_id: "toggl:#{external_id}", client_id: client_id}) do
       {:not_found, _} ->
-        @fastbill_api.create_project(%{client_id: client_id, external_id: external_id, name: name, at: at})
+        @fastbill_api.create_project(%{client_id: client_id, external_id: "toggl:#{external_id}", name: name, at: at})
       res ->
         res
     end

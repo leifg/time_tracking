@@ -16,7 +16,7 @@ defmodule TimeTracking.FastbillControllerTest do
     response = json_response(conn, 200)
     assert response["name"] == "Shaidy & Co"
     assert response["id"] == "2"
-    assert response["external_id"] == "toggl_id_not_found"
+    assert response["external_id"] == "toggl:toggl_id_not_found"
   end
 
   test "returns existing client when it does exist", %{conn: conn} do
@@ -24,7 +24,7 @@ defmodule TimeTracking.FastbillControllerTest do
     response = json_response(conn, 200)
     assert response["name"] == "found before"
     assert response["id"] == "1"
-    assert response["external_id"] == "toggl_id_found"
+    assert response["external_id"] == "toggl:toggl_id_found"
   end
 
   test "creates new project when it doesn't exist", %{conn: conn} do
@@ -32,7 +32,7 @@ defmodule TimeTracking.FastbillControllerTest do
     response = json_response(conn, 200)
     assert response["name"] == "New Project"
     assert response["id"] == "project_2"
-    assert response["external_id"] == "toggl_id_not_found"
+    assert response["external_id"] == "toggl:toggl_id_not_found"
   end
 
   test "returns existing project when it does exist", %{conn: conn} do
@@ -40,6 +40,6 @@ defmodule TimeTracking.FastbillControllerTest do
     response = json_response(conn, 200)
     assert response["name"] == "Already Existing"
     assert response["id"] == "project_1"
-    assert response["external_id"] == "toggl_id_found"
+    assert response["external_id"] == "toggl:toggl_id_found"
   end
 end
