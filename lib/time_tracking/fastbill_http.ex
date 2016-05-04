@@ -9,26 +9,26 @@ defmodule TimeTracking.Fastbill.Http do
   @fastbill_token Application.get_env(:time_tracking, :fastbill_token)
   @auth [basic_auth: {@fastbill_email, @fastbill_token}]
 
-  def create_client(%{name: name, id:  id, at: _at}) do
+  def create_client(%{name: name, external_id:  external_id, at: _at}) do
     HTTPoison.start
     body = %{
       SERVICE: "customer.create",
       DATA: %{
-        CUSTOMER_NUMBER: "toggl:#{id}",
+        CUSTOMER_NUMBER: "toggl:#{external_id}",
         CUSTOMER_TYPE: @customer_type,
         ORGANIZATION: name
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), name: name }} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), external_id: "toggl:#{external_id}", name: name }} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
-  def find_client(%{id: id}) do
+  def find_client(%{external_id: external_id}) do
     HTTPoison.start
     body = %{
       SERVICE: "customer.get",
       FILTER: %{
-        CUSTOMER_NUMBER: "toggl:#{id}",
+        CUSTOMER_NUMBER: "toggl:#{external_id}",
       }
     }
     process_res = fn(res) ->
@@ -37,7 +37,7 @@ defmodule TimeTracking.Fastbill.Http do
           {:not_found, %{}}
         clients ->
           first_client = List.first(clients)
-          {:ok, %{id: first_client["CUSTOMER_ID"], name: first_client["ORGANIZATION"]}}
+          {:ok, %{id: first_client["CUSTOMER_ID"], external_id: first_client["CUSTOMER_NUMBER"], name: first_client["ORGANIZATION"]}}
       end
     end
     http_call(@endpoint, body, @headers, @auth, process_res)
@@ -52,11 +52,11 @@ defmodule TimeTracking.Fastbill.Http do
         CUSTOMER_ID: client_id
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), name: name }} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: res["RESPONSE"]["PROJECT_NUMBER"], name: name }} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
-  def find_project(%{client_id: client_id, id: id}) do
+  def find_project(%{client_id: client_id, external_id: external_id}) do
     HTTPoison.start
     body = %{
       SERVICE: "project.get",
@@ -65,11 +65,11 @@ defmodule TimeTracking.Fastbill.Http do
       }
     }
     process_res = fn(res) ->
-      case Enum.find(res["RESPONSE"]["PROJECTS"], fn(elem) -> elem["PROJECT_NUMBER"] == "toggl:#{id}"; end) do
+      case Enum.find(res["RESPONSE"]["PROJECTS"], fn(elem) -> elem["PROJECT_NUMBER"] == "toggl:#{external_id}"; end) do
         nil ->
           {:not_found, %{}}
         project ->
-          {:ok, %{id: project["PROJECT_ID"], name: project["PROJECT_NAME"]}}
+          {:ok, %{id: project["PROJECT_ID"], external_id: "toggl:#{external_id}", name: project["PROJECT_NAME"]}}
       end
     end
     http_call(@endpoint, body, @headers, @auth, process_res)
