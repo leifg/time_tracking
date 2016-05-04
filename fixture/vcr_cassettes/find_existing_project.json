@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"SERVICE\":\"project.get\",\"FILTER\":{\"CUSTOMER_ID\":\"2185334\"}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "basic_auth": [
+          "<USER>",
+          "<TOKEN>"
+        ]
+      },
+      "request_body": "",
+      "url": "https://my.fastbill.com/api/1.0/api.php"
+    },
+    "response": {
+      "body": "{\"REQUEST\":{\"SERVICE\":\"project.get\",\"FILTER\":{\"CUSTOMER_ID\":\"2185334\"}},\"RESPONSE\":{\"PROJECTS\":[{\"PROJECT_ID\":\"104236\",\"PROJECT_NAME\":\"Hide the Money\",\"PROJECT_NUMBER\":\"toggl:15935830\",\"CUSTOMER_ID\":\"2185334\",\"CUSTOMER_COSTCENTER_ID\":\"0\",\"HOUR_PRICE\":\"0.00\",\"CURRENCY_CODE\":\"USD\",\"VAT_PERCENT\":\"0.00\",\"START_DATE\":\"2016-05-04\",\"END_DATE\":\"2016-06-04\",\"TASKS\":[]}]}}",
+      "headers": {
+        "Date": "Wed, 04 May 2016 18:08:45 GMT",
+        "Server": "Apache",
+        "Cache-Control": "no-store",
+        "Last-Modified": "Wed, 04 May 2016 18:08:45 GMT",
+        "P3P": "CP=\"CAO PSA OUR\"",
+        "Access-Control-Allow-Origin": "*",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "365",
+        "Connection": "close",
+        "Content-Type": "text/plain; charset=UTF-8"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
