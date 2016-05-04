@@ -1,27 +1,27 @@
 defmodule TimeTracking.Fastbill.InMemory do
   @behaviour TimeTracking.Fastbill
 
-  def find_client(%{id: "toggl_id_found"}) do
-    {:ok, %{id: "1", name: "found before"}}
+  def find_client(%{external_id: "toggl:toggl_id_found"}) do
+    {:ok, %{id: "1", external_id: "toggl:toggl_id_found", name: "found before"}}
   end
 
-  def find_client(%{id: id}) do
-    {:not_found, %{message: "client with ID '#{id}' not found"}}
+  def find_client(%{external_id: external_id}) do
+    {:not_found, %{message: "client with ID '#{external_id}' not found"}}
   end
 
-  def create_client(%{name: "Shaidy & Co"}) do
-    {:ok, %{id: "2", name: "Shaidy & Co"}}
+  def create_client(%{external_id: "toggl:toggl_id_not_found", name: "Shaidy & Co"}) do
+    {:ok, %{id: "2", external_id: "toggl:toggl_id_not_found", name: "Shaidy & Co"}}
   end
 
-  def find_project(%{id: "toggl_id_found", client_id: "client_id"}) do
-    {:ok, %{id: "project_1", client_id: "client_id", name: "Already Existing"}}
+  def find_project(%{external_id: "toggl:toggl_id_found", client_id: "client_id"}) do
+    {:ok, %{id: "project_1", external_id: "toggl:toggl_id_found", client_id: "client_id", name: "Already Existing"}}
   end
 
-  def find_project(%{id: id, client_id: client_id}) do
+  def find_project(%{external_id: id, client_id: client_id}) do
     {:not_found, %{message: "project of client '#{client_id}' with ID '#{id}' not found"}}
   end
 
-  def create_project(%{client_id: "client_id", name: "New Project"}) do
-    {:ok, %{id: "project_2", name: "New Project"}}
+  def create_project(%{client_id: "client_id", external_id: "toggl:toggl_id_not_found", name: "New Project"}) do
+    {:ok, %{id: "project_2", external_id: "toggl:toggl_id_not_found", name: "New Project"}}
   end
 end
