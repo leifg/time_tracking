@@ -1,3 +1,6 @@
+# general files
+.DS_Store
+
 # App artifacts
 /_build
 /db
