@@ -4,8 +4,8 @@ defmodule TimeTracking.FastbillControllerTest do
   @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found", "at" => "2016-04-20T10:23:33+00:00"}
   @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found", "at" => "2016-04-20T10:23:33+00:00"}
 
-  @existing_project %{"id" => "toggl_id_found", "cid" => "client_id", "name" => "Already Existing", "at" => "2016-04-24T17:04:23+00:00"}
-  @non_existing_project %{"id" => "toggl_id_not_found", "cid" => "client_id", "name" => "New Project", "at" => "2016-04-24T17:04:23+00:00"}
+  @existing_project %{"id" => "toggl_id_found", "cid" => "toggl_id_found", "name" => "Already Existing", "at" => "2016-04-24T17:04:23+00:00"}
+  @non_existing_project %{"id" => "toggl_id_not_found", "cid" => "toggl_id_found", "name" => "New Project", "at" => "2016-04-24T17:04:23+00:00"}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
