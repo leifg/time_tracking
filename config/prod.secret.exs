@@ -8,4 +8,5 @@ config :time_tracking, TimeTracking.Endpoint,
 
 config :time_tracking,
   fastbill_email: System.get_env("FASTBILL_EMAIL"),
-  fastbill_token: System.get_env("FASTBILL_TOKEN")
+  fastbill_token: System.get_env("FASTBILL_TOKEN"),
+  fastbill_timezone: System.get_env("FASTBILL_TIMEZONE")
