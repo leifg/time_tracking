@@ -7,7 +7,7 @@ defmodule TimeTracking.FastbillControllerTest do
   @existing_project %{"id" => "toggl_id_found", "cid" => "toggl_id_found", "name" => "Already Existing", "at" => "2016-04-24T17:04:23+00:00"}
   @non_existing_project %{"id" => "toggl_id_not_found", "cid" => "toggl_id_found", "name" => "New Project", "at" => "2016-04-24T17:04:23+00:00"}
 
-  @time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration" => "30078", "project" => @existing_project}
+  @time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration_minutes" => "501", "project" => @existing_project}
 
   @user Application.get_env(:time_tracking, :fastbill_email)
   @password Application.get_env(:time_tracking, :fastbill_token)
