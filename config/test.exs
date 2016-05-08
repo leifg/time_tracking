@@ -10,3 +10,7 @@ config :time_tracking, :fastbill_api, TimeTracking.Fastbill.InMemory
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :time_tracking,
+  fastbill_email: "test@example.com",
+  fastbill_token: "SECRET-TEST-TOKEN"
