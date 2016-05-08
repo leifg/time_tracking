@@ -1,13 +1,13 @@
 defmodule TimeTracking.FastbillControllerTest do
   use TimeTracking.ConnCase
 
-  @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found", "at" => "2016-04-20T10:23:33+00:00"}
-  @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found", "at" => "2016-04-20T10:23:33+00:00"}
+  @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found"}
+  @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found"}
 
-  @existing_project %{"id" => "toggl_id_found", "cid" => "toggl_id_found", "name" => "Already Existing", "at" => "2016-04-24T17:04:23+00:00"}
-  @non_existing_project %{"id" => "toggl_id_not_found", "cid" => "toggl_id_found", "name" => "New Project", "at" => "2016-04-24T17:04:23+00:00"}
+  @existing_project %{"id" => "toggl_id_found", "client" => @existing_client, "name" => "Already Existing"}
+  @non_existing_project %{"id" => "toggl_id_not_found", "client" => @existing_client, "name" => "New Project"}
 
-  @time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration" => "30078", "project" => @existing_project}
+  @time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration_minutes" => "501", "project" => @existing_project}
 
   @user Application.get_env(:time_tracking, :fastbill_email)
   @password Application.get_env(:time_tracking, :fastbill_token)
@@ -31,14 +31,14 @@ defmodule TimeTracking.FastbillControllerTest do
   test "creates new client when it doesn't exist", %{conn: conn} do
     response = post(conn, "/clients", @non_existing_client) |> json_response(200)
     assert response["name"] == "Shaidy & Co"
-    assert response["id"] == "2"
+    assert response["id"] == "client_2"
     assert response["external_id"] == "toggl:toggl_id_not_found"
   end
 
   test "returns existing client when it does exist", %{conn: conn} do
     response = post(conn, "/clients", @existing_client) |> json_response(200)
     assert response["name"] == "found before"
-    assert response["id"] == "1"
+    assert response["id"] == "client_1"
     assert response["external_id"] == "toggl:toggl_id_found"
   end
 
@@ -54,6 +54,7 @@ defmodule TimeTracking.FastbillControllerTest do
     assert response["name"] == "New Project"
     assert response["id"] == "project_2"
     assert response["external_id"] == "toggl:toggl_id_not_found"
+    assert response["client_id"] == "client_2"
   end
 
   test "returns existing project when it does exist", %{conn: conn} do

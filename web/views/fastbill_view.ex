@@ -6,7 +6,7 @@ defmodule TimeTracking.FastbillView do
   end
 
   def render("project.json", %{project: project}) do
-    %{id: project.id, external_id: project.external_id, name: project.name}
+    %{id: project.id, external_id: project.external_id, client_id: project.client_id, name: project.name}
   end
 
   def render("time_slot.json", %{time_slot: time_slot}) do

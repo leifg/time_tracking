@@ -37,6 +37,7 @@ defmodule TimeTracking.FastbillHttpTest do
       {:ok, project} = TimeTracking.Fastbill.Http.create_project(%{client_id: "2185334", external_id: "toggl:18606629", name: "Hide the Money", at: "2016-04-27T22:17:01+00:00"})
       assert project.id == "104248"
       assert project.name == "Hide the Money"
+      assert project.client_id == "2185334"
       assert project.external_id == "toggl:18606629"
     end
   end
@@ -46,6 +47,7 @@ defmodule TimeTracking.FastbillHttpTest do
       {:ok, project} = TimeTracking.Fastbill.Http.find_project(%{client_id: "2185334", external_id: "toggl:15935830"})
       assert project.id == "104236"
       assert project.name == "Hide the Money"
+      assert project.client_id == "2185334"
       assert project.external_id == "toggl:15935830"
     end
   end
