@@ -32,6 +32,7 @@ defmodule TimeTracking.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:exvcr, "~> 0.7", only: :test},
      {:cowboy, "~> 1.0"},
-     {:httpoison, "~> 0.8"}]
+     {:httpoison, "~> 0.8"},
+     {:plug_basic_auth, "~> 1.1"}]
   end
 end
