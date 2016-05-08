@@ -9,7 +9,7 @@ defmodule TimeTracking.Fastbill.Http do
   @fastbill_token Application.get_env(:time_tracking, :fastbill_token)
   @auth [basic_auth: {@fastbill_email, @fastbill_token}]
 
-  def create_client(%{name: name, external_id:  external_id}) do
+  def create_client(%{name: name, external_id: external_id}) do
     HTTPoison.start
     body = %{
       SERVICE: "customer.create",
