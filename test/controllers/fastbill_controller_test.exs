@@ -4,8 +4,8 @@ defmodule TimeTracking.FastbillControllerTest do
   @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found"}
   @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found"}
 
-  @existing_project %{"id" => "toggl_id_found", "cid" => "toggl_id_found", "name" => "Already Existing"}
-  @non_existing_project %{"id" => "toggl_id_not_found", "cid" => "toggl_id_found", "name" => "New Project"}
+  @existing_project %{"id" => "toggl_id_found", "client" => @existing_client, "name" => "Already Existing"}
+  @non_existing_project %{"id" => "toggl_id_not_found", "client" => @existing_client, "name" => "New Project"}
 
   @time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration_minutes" => "501", "project" => @existing_project}
 

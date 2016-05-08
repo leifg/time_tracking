@@ -12,12 +12,11 @@ defmodule TimeTracking.FastbillController do
     render_client(conn, api_return)
   end
 
-  def create_project(conn, %{"id" => external_id, "name" => name, "cid" => external_client_id}) do
-    {:ok, client} = @fastbill_api.find_client(%{external_id: "toggl:#{external_client_id}"})
-    client_id = client.id
-    api_return = case @fastbill_api.find_project(%{external_id: "toggl:#{external_id}", client_id: client_id}) do
+  def create_project(conn, %{"id" => external_id, "name" => name, "client" => client}) do
+    {:ok, fb_client} = @fastbill_api.find_client(%{external_id: "toggl:#{client["id"]}"})
+    api_return = case @fastbill_api.find_project(%{external_id: "toggl:#{external_id}", client_id: fb_client.id}) do
       {:not_found, _} ->
-        @fastbill_api.create_project(%{client_id: client_id, external_id: "toggl:#{external_id}", name: name})
+        @fastbill_api.create_project(%{client_id: fb_client.id, external_id: "toggl:#{external_id}", name: name})
       res ->
         res
     end
@@ -26,8 +25,9 @@ defmodule TimeTracking.FastbillController do
 
   def create_time_slot(conn, params) do
     project = params["project"]
+    client = project["client"]
 
-    {:ok, fb_client} = @fastbill_api.find_client(%{external_id: "toggl:#{project["cid"]}"})
+    {:ok, fb_client} = @fastbill_api.find_client(%{external_id: "toggl:#{client["id"]}"})
     {:ok, fb_project} = @fastbill_api.find_project(%{external_id: "toggl:#{project["id"]}", client_id: fb_client.id})
 
     minutes = params["duration_minutes"] |> String.to_integer
