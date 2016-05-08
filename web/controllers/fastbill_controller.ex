@@ -24,12 +24,14 @@ defmodule TimeTracking.FastbillController do
     render_project(conn, api_return)
   end
 
-  def create_time_slot(conn, %{"start" => start_time, "stop" => end_time, "duration" => duration, "description" => comment, "project" => project}) do
+  def create_time_slot(conn, params) do
+    project = params["project"]
+
     {:ok, fb_client} = @fastbill_api.find_client(%{external_id: "toggl:#{project["cid"]}"})
     {:ok, fb_project} = @fastbill_api.find_project(%{external_id: "toggl:#{project["id"]}", client_id: fb_client.id})
 
-    minutes = duration |> String.to_integer |> div(60)
-    api_return = @fastbill_api.create_time_slot(%{client_id: fb_client.id, project_id: fb_project.id, date: start_time, start_time: start_time, minutes: minutes, billable_minutes: minutes, end_time: end_time, comment: comment})
+    minutes = params["duration"] |> String.to_integer |> div(60)
+    api_return = @fastbill_api.create_time_slot(%{client_id: fb_client.id, project_id: fb_project.id, date: params["start"], start_time: params["start"], minutes: minutes, billable_minutes: minutes, end_time: params["stop"], comment: params["description"]})
     render_time_slot(conn, api_return)
   end
 
