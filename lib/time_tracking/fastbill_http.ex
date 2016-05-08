@@ -76,6 +76,25 @@ defmodule TimeTracking.Fastbill.Http do
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
+  def create_time_slot(%{client_id: client_id, project_id: project_id, date: date, start_time: start_time, end_time: end_time, minutes: minutes, billable_minutes: billable_minutes, comment: comment}) do
+    HTTPoison.start
+    body = %{
+      SERVICE: "time.create",
+      DATA: %{
+        CUSTOMER_ID: client_id,
+        PROJECT_ID: project_id,
+        DATE: date,
+        START_TIME: start_time,
+        END_TIME: end_time,
+        MINUTES: minutes,
+        BILLABLE_MINUTES: billable_minutes,
+        COMMENT: comment,
+      }
+    }
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["TIME_ID"]), start_time: start_time, end_time: end_time}} end
+    http_call(@endpoint, body, @headers, @auth, process_res)
+  end
+
   defp http_call(endpoint, request_body, headers, auth, process_fun) do
     case HTTPoison.post(endpoint, Poison.encode!(request_body), headers, [hackney: auth]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
