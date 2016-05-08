@@ -14,6 +14,9 @@ config :time_tracking, TimeTracking.Endpoint,
 
 config :time_tracking, :fastbill_api, TimeTracking.Fastbill.Http
 
+config :time_tracking,
+  fastbill_timezone: "Europe/Berlin"
+
 # Watch static and templates for browser reloading.
 config :time_tracking, TimeTracking.Endpoint,
   live_reload: [

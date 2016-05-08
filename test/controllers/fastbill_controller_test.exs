@@ -75,5 +75,7 @@ defmodule TimeTracking.FastbillControllerTest do
     response = post(conn, "/time_slots", @time_slot) |> json_response(200)
     assert response["id"] == "time_slot_1"
     assert response["comment"] == "controller test"
+    assert response["start_time"] == "2016-05-08T11:17:53+02:00"
+    assert response["end_time"] == "2016-05-08T19:39:11+02:00"
   end
 end
