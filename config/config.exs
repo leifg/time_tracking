@@ -12,10 +12,7 @@ config :time_tracking, TimeTracking.Endpoint,
   secret_key_base: "EEWzzLxm6nHH+2S23bWXBwVWMnOO2jPpqeSD8iyTLWL82BVpF5w2pXOoPG6+inlX",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: TimeTracking.PubSub,
-           adapter: Phoenix.PubSub.PG2],
-  fastbill_email: System.get_env("FASTBILL_EMAIL"),
-  fastbill_token: System.get_env("FASTBILL_TOKEN"),
-  fastbill_timezone: System.get_env("FASTBILL_TIMEZONE")
+           adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
