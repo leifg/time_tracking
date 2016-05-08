@@ -53,7 +53,7 @@ defmodule TimeTracking.Fastbill.Http do
         CUSTOMER_ID: client_id
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: external_id, name: name }} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: external_id, name: name, client_id: client_id }} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 
@@ -70,7 +70,7 @@ defmodule TimeTracking.Fastbill.Http do
         nil ->
           {:not_found, %{}}
         project ->
-          {:ok, %{id: project["PROJECT_ID"], external_id: external_id, name: project["PROJECT_NAME"]}}
+          {:ok, %{id: project["PROJECT_ID"], external_id: external_id, name: project["PROJECT_NAME"], client_id: client_id}}
       end
     end
     http_call(@endpoint, body, @headers, @auth, process_res)

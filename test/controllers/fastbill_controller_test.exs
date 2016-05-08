@@ -54,6 +54,7 @@ defmodule TimeTracking.FastbillControllerTest do
     assert response["name"] == "New Project"
     assert response["id"] == "project_2"
     assert response["external_id"] == "toggl:toggl_id_not_found"
+    assert response["client_id"] == "2"
   end
 
   test "returns existing project when it does exist", %{conn: conn} do
