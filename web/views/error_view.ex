@@ -5,7 +5,11 @@ defmodule TimeTracking.ErrorView do
     %{message: error.message}
   end
 
-  def render("500.json", %{error: error}) do
-    %{message: error.message}
+  def render("400.json", _assigns) do
+    %{message: "Bad Request"}
+  end
+
+  def render("500.json", _assigns) do
+    %{message: "Server Internal Error"}
   end
 end

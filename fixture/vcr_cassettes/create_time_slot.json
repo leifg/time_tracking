@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"SERVICE\":\"time.create\",\"DATA\":{\"START_TIME\":\"2016-05-07T09:17:53+00:00\",\"PROJECT_ID\":\"104350\",\"MINUTES\":501,\"END_TIME\":\"2016-05-07T17:39:11+00:00\",\"DATE\":\"2016-05-07T09:17:53+00:00\",\"CUSTOMER_ID\":\"2185334\",\"COMMENT\":\"client test\",\"BILLABLE_MINUTES\":501}}",
+      "headers": {
+        "Accept": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "basic_auth": [
+          "<USER>",
+          "<TOKEN>"
+        ]
+      },
+      "request_body": "",
+      "url": "https://my.fastbill.com/api/1.0/api.php"
+    },
+    "response": {
+      "body": "{\"REQUEST\":{\"SERVICE\":\"time.create\",\"DATA\":{\"START_TIME\":\"2016-05-07T09:17:53+00:00\",\"PROJECT_ID\":\"104350\",\"MINUTES\":501,\"END_TIME\":\"2016-05-07T17:39:11+00:00\",\"DATE\":\"2016-05-07T09:17:53+00:00\",\"CUSTOMER_ID\":\"2185334\",\"COMMENT\":\"client test\",\"BILLABLE_MINUTES\":501}},\"RESPONSE\":{\"STATUS\":\"success\",\"TIME_ID\":415012,\"CREATED\":\"2016-05-07T09:17:53+00:00 14:52:34\"}}",
+      "headers": {
+        "Date": "Sun, 08 May 2016 12:52:34 GMT",
+        "Server": "Apache",
+        "Cache-Control": "no-store",
+        "Last-Modified": "Sun, 08 May 2016 12:52:34 GMT",
+        "P3P": "CP=\"CAO PSA OUR\"",
+        "Access-Control-Allow-Origin": "*",
+        "Vary": "Accept-Encoding",
+        "Content-Length": "364",
+        "Connection": "close",
+        "Content-Type": "text/plain; charset=UTF-8"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

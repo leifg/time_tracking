@@ -56,4 +56,13 @@ defmodule TimeTracking.FastbillHttpTest do
       assert empty == %{}
     end
   end
+
+  test "create time slot" do
+    use_cassette "create_time_slot" do
+      {:ok, time_slot} = TimeTracking.Fastbill.Http.create_time_slot(%{client_id: "2185334", project_id: "104350", date: "2016-05-07T09:17:53+00:00", start_time: "2016-05-07T09:17:53+00:00", end_time: "2016-05-07T17:39:11+00:00", minutes: 501, billable_minutes: 501, comment: "client test"})
+      assert time_slot.id == "415012"
+      assert time_slot.start_time == "2016-05-07T09:17:53+00:00"
+      assert time_slot.end_time == "2016-05-07T17:39:11+00:00"
+    end
+  end
 end

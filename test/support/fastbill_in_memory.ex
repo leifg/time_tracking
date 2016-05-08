@@ -24,4 +24,8 @@ defmodule TimeTracking.Fastbill.InMemory do
   def create_project(%{client_id: "1", external_id: "toggl:toggl_id_not_found", name: "New Project"}) do
     {:ok, %{id: "project_2", external_id: "toggl:toggl_id_not_found", name: "New Project"}}
   end
+
+  def create_time_slot(%{client_id: "1", minutes: 501, billable_minutes: 501, project_id: "project_1", date: "2016-05-08T09:17:53+00:00", start_time: "2016-05-08T09:17:53+00:00", end_time: "2016-05-08T17:39:11+00:00", comment: "controller test"}) do
+    {:ok, %{id: "time_slot_1", comment: "controller test", start_time: "2016-05-08T09:17:53+00:00", end_time: "2016-05-08T17:39:11+00:00"}}
+  end
 end

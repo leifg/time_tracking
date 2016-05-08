@@ -7,6 +7,8 @@ defmodule TimeTracking.FastbillControllerTest do
   @existing_project %{"id" => "toggl_id_found", "cid" => "toggl_id_found", "name" => "Already Existing", "at" => "2016-04-24T17:04:23+00:00"}
   @non_existing_project %{"id" => "toggl_id_not_found", "cid" => "toggl_id_found", "name" => "New Project", "at" => "2016-04-24T17:04:23+00:00"}
 
+  @time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration" => "30078", "project" => @existing_project}
+
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
@@ -41,5 +43,12 @@ defmodule TimeTracking.FastbillControllerTest do
     assert response["name"] == "Already Existing"
     assert response["id"] == "project_1"
     assert response["external_id"] == "toggl:toggl_id_found"
+  end
+
+  test "creates time slot" do
+    conn = post conn, "/time_slots", @time_slot
+    response = json_response(conn, 200)
+    assert response["id"] == "time_slot_1"
+    assert response["comment"] == "controller test"
   end
 end

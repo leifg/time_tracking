@@ -22,4 +22,10 @@ defmodule TimeTracking.Router do
 
     post "/", FastbillController, :create_project
   end
+
+  scope "/time_slots", TimeTracking do
+    pipe_through :api
+
+    post "/", FastbillController, :create_time_slot
+  end
 end
