@@ -17,7 +17,7 @@ defmodule TimeTracking.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {TimeTracking, []},
-     applications: [:phoenix, :cowboy, :logger]]
+     applications: [:phoenix, :cowboy, :logger, :timex  ]]
   end
 
   # Specifies which paths to compile per environment.
@@ -33,6 +33,7 @@ defmodule TimeTracking.Mixfile do
      {:exvcr, "~> 0.7", only: :test},
      {:cowboy, "~> 1.0"},
      {:httpoison, "~> 0.8"},
-     {:plug_basic_auth, "~> 1.1"}]
+     {:plug_basic_auth, "~> 1.1"},
+     {:timex, "~> 2.1"}]
   end
 end

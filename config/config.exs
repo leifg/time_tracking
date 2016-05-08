@@ -14,7 +14,8 @@ config :time_tracking, TimeTracking.Endpoint,
   pubsub: [name: TimeTracking.PubSub,
            adapter: Phoenix.PubSub.PG2],
   fastbill_email: System.get_env("FASTBILL_EMAIL"),
-  fastbill_token: System.get_env("FASTBILL_TOKEN")
+  fastbill_token: System.get_env("FASTBILL_TOKEN"),
+  fastbill_timezone: System.get_env("FASTBILL_TIMEZONE")
 
 # Configures Elixir's Logger
 config :logger, :console,

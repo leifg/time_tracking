@@ -13,4 +13,5 @@ config :logger, level: :warn
 
 config :time_tracking,
   fastbill_email: "test@example.com",
-  fastbill_token: "SECRET-TEST-TOKEN"
+  fastbill_token: "SECRET-TEST-TOKEN",
+  fastbill_timezone: "Europe/Berlin"
