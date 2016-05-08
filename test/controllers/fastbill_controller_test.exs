@@ -31,14 +31,14 @@ defmodule TimeTracking.FastbillControllerTest do
   test "creates new client when it doesn't exist", %{conn: conn} do
     response = post(conn, "/clients", @non_existing_client) |> json_response(200)
     assert response["name"] == "Shaidy & Co"
-    assert response["id"] == "2"
+    assert response["id"] == "client_2"
     assert response["external_id"] == "toggl:toggl_id_not_found"
   end
 
   test "returns existing client when it does exist", %{conn: conn} do
     response = post(conn, "/clients", @existing_client) |> json_response(200)
     assert response["name"] == "found before"
-    assert response["id"] == "1"
+    assert response["id"] == "client_1"
     assert response["external_id"] == "toggl:toggl_id_found"
   end
 
@@ -54,7 +54,7 @@ defmodule TimeTracking.FastbillControllerTest do
     assert response["name"] == "New Project"
     assert response["id"] == "project_2"
     assert response["external_id"] == "toggl:toggl_id_not_found"
-    assert response["client_id"] == "2"
+    assert response["client_id"] == "client_2"
   end
 
   test "returns existing project when it does exist", %{conn: conn} do
