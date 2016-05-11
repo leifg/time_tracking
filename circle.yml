@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 5.8.0
+    version: 6.1.0
   environment:
     GH_REPOSITORY_URL: https://github.com/leifg/time_tracking
 
