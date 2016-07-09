@@ -28,12 +28,12 @@ defmodule TimeTracking.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.4"},
+    [{:phoenix, "~> 1.2.0"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:exvcr, "~> 0.7", only: :test},
      {:cowboy, "~> 1.0"},
-     {:httpoison, "~> 0.8"},
+     {:httpoison, "~> 0.9"},
      {:plug_basic_auth, "~> 1.1"},
-     {:timex, "~> 2.1"}]
+     {:timex, "~> 2.2"}]
   end
 end

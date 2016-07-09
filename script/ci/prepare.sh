@@ -25,6 +25,8 @@ if [ ! -e $ERLANG_PATH/bin/erl ]; then
               --enable-threads \
               --enable-kernel-poll \
               --disable-hipe \
+              --without-megaco \
+							--without-wx \
               --without-javac
   make
 
