@@ -14,21 +14,23 @@ defmodule TimeTracking.PageControllerTest do
       }
   end
 
-  test "GET / (no authorization)", %{conn: conn} do
-    conn = get conn, "/"
-    assert conn.state == :sent
-    assert conn.status == 401
-  end
+  describe "GET /" do
+    test "without authorization", %{conn: conn} do
+      conn = get conn, "/"
+      assert conn.state == :sent
+      assert conn.status == 401
+    end
 
-  test "GET / (wrong authorization)", %{conn: conn} do
-    conn = put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@wrong_user}:#{@wrong_password}")) |> get("/")
-    assert conn.state == :sent
-    assert conn.status == 401
-  end
+    test "with wrong authorization", %{conn: conn} do
+      conn = put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@wrong_user}:#{@wrong_password}")) |> get("/")
+      assert conn.state == :sent
+      assert conn.status == 401
+    end
 
-  test "GET / (authorized)", %{conn: conn} do
-        conn = put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@correct_user}:#{@correct_password}")) |> get("/")
-    assert conn.state == :sent
-    assert conn.status == 200
+    test "with correct authorization", %{conn: conn} do
+          conn = put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@correct_user}:#{@correct_password}")) |> get("/")
+      assert conn.state == :sent
+      assert conn.status == 200
+    end
   end
 end
