@@ -91,7 +91,7 @@ defmodule TimeTracking.Fastbill.Http do
         COMMENT: comment,
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["TIME_ID"]), start_time: start_time, end_time: end_time}} end
+    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["TIME_ID"]), start_time: start_time, end_time: end_time, minutes: minutes, billable_minutes: billable_minutes}} end
     http_call(@endpoint, body, @headers, @auth, process_res)
   end
 

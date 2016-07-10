@@ -10,6 +10,6 @@ defmodule TimeTracking.FastbillView do
   end
 
   def render("time_slot.json", %{time_slot: time_slot}) do
-    %{id: time_slot.id, comment: time_slot[:comment], start_time: time_slot.start_time, end_time: time_slot.end_time}
+    %{id: time_slot.id, comment: time_slot[:comment], start_time: time_slot.start_time, end_time: time_slot.end_time, minutes: time_slot.minutes, billable_minutes: time_slot.billable_minutes}
   end
 end

@@ -82,6 +82,8 @@ defmodule TimeTracking.FastbillControllerTest do
       assert response["comment"] == "controller test"
       assert response["start_time"] == "2016-05-08T11:17:53+02:00"
       assert response["end_time"] == "2016-05-08T19:39:11+02:00"
+      assert response["minutes"] == 501
+      assert response["billable_minutes"] == 501
     end
   end
 end

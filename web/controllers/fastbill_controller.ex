@@ -16,7 +16,8 @@ defmodule TimeTracking.FastbillController do
     start_time = params["start"] |> TimezoneConverter.convert
     end_time = params["stop"] |> TimezoneConverter.convert
     minutes = params["duration_minutes"] |> String.to_integer
-    api_return = @fastbill_api.create_time_slot(%{client_id: fb_project.client_id, project_id: fb_project.id, date: start_time, start_time: start_time, minutes: minutes, billable_minutes: minutes, end_time: end_time, comment: params["description"]})
+    billable_minutes = params["duration_minutes"] |> String.to_integer
+    api_return = @fastbill_api.create_time_slot(%{client_id: fb_project.client_id, project_id: fb_project.id, date: start_time, start_time: start_time, minutes: minutes, billable_minutes: billable_minutes, end_time: end_time, comment: params["description"]})
     render_time_slot(conn, api_return)
   end
 
