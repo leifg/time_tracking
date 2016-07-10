@@ -28,7 +28,7 @@ defmodule TimeTracking.PageControllerTest do
     end
 
     test "with correct authorization", %{conn: conn} do
-          conn = put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@correct_user}:#{@correct_password}")) |> get("/")
+      conn = put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@correct_user}:#{@correct_password}")) |> get("/")
       assert conn.state == :sent
       assert conn.status == 200
     end

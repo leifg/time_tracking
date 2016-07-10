@@ -8,6 +8,8 @@ This project solely works with the 2 mentioned service and it needs [Zapier](htt
 
 It only works if the time slot that you push has a project and a client set.
 
+Needs a paid subsciption for Toggl as the billable flag needs to be set to 'True'. [Ping me](http://twitter.com/leifg) if you need it working on the free plan of toggl.
+
 ## Zapier Request
 
 This is a sample request from Zapier that needs to be posted to `/time_slots`
