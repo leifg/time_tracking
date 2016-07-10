@@ -41,8 +41,8 @@ defmodule TimeTracking.FastbillController do
     end
   end
 
-  defp to_boolean("false"), do: false
   defp to_boolean("true"), do: true
+  defp to_boolean(_), do: false
 
   defp render_project(conn, {:ok, project}) do
     render conn, "project.json", %{project: project}
