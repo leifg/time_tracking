@@ -69,7 +69,7 @@ defmodule TimeTracking.FastbillControllerTest do
     end
   end
 
-  describe "POST  /time_slots" do
+  describe "POST /time_slots" do
     # skip setup by leaving out the options
     test "does not lett unauthoized users pass for creation of time slot" do
       conn = post(build_conn, "/time_slots", @billable_time_slot)
