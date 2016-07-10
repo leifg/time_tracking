@@ -13,10 +13,11 @@ defmodule TimeTracking.FastbillController do
   def create_time_slot(conn, params) do
     {:ok, fb_project} = find_or_create_project(params["project"])
 
+    billable_flag = params["billable"] |> String.downcase |> to_boolean
     start_time = params["start"] |> TimezoneConverter.convert
     end_time = params["stop"] |> TimezoneConverter.convert
     minutes = params["duration_minutes"] |> String.to_integer
-    billable_minutes = params["duration_minutes"] |> String.to_integer
+    billable_minutes = params["duration_minutes"] |> String.to_integer |> BillableCalculator.calculate(billable_flag)
     api_return = @fastbill_api.create_time_slot(%{client_id: fb_project.client_id, project_id: fb_project.id, date: start_time, start_time: start_time, minutes: minutes, billable_minutes: billable_minutes, end_time: end_time, comment: params["description"]})
     render_time_slot(conn, api_return)
   end
@@ -39,6 +40,9 @@ defmodule TimeTracking.FastbillController do
         res
     end
   end
+
+  defp to_boolean("false"), do: false
+  defp to_boolean("true"), do: true
 
   defp render_project(conn, {:ok, project}) do
     render conn, "project.json", %{project: project}
