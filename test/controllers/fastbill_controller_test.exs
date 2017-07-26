@@ -25,7 +25,7 @@ defmodule TimeTracking.FastbillControllerTest do
   describe "POST /clients" do
     # skip setup by leaving out the options
     test "does not lett unauthoized users pass for creation of client" do
-      conn = post(build_conn, "/clients", @non_existing_client)
+      conn = post(build_conn(), "/clients", @non_existing_client)
       assert conn.state == :sent
       assert conn.status == 401
     end
@@ -48,7 +48,7 @@ defmodule TimeTracking.FastbillControllerTest do
   describe "POST /projects" do
     # skip setup by leaving out the options
     test "does not lett unauthoized users pass for creation of project" do
-      conn = post(build_conn, "/projects", @non_existing_project)
+      conn = post(build_conn(), "/projects", @non_existing_project)
       assert conn.state == :sent
       assert conn.status == 401
     end
@@ -72,7 +72,7 @@ defmodule TimeTracking.FastbillControllerTest do
   describe "POST /time_slots" do
     # skip setup by leaving out the options
     test "does not lett unauthoized users pass for creation of time slot" do
-      conn = post(build_conn, "/time_slots", @billable_time_slot)
+      conn = post(build_conn(), "/time_slots", @billable_time_slot)
       assert conn.state == :sent
       assert conn.status == 401
     end
