@@ -1,5 +1,5 @@
 defmodule TimeTracking.FastbillControllerTest do
-  use TimeTracking.ConnCase
+  use TimeTrackingWeb.ConnCase
 
   @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found"}
   @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found"}

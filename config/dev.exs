@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :time_tracking, TimeTracking.Endpoint,
+config :time_tracking, TimeTrackingWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -18,13 +18,13 @@ config :time_tracking,
   fastbill_timezone: "Europe/Berlin"
 
 # Watch static and templates for browser reloading.
-config :time_tracking, TimeTracking.Endpoint,
+config :time_tracking, TimeTrackingWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{web/views/.*(ex)$},
-      ~r{web/templates/.*(eex)$}
+      ~r{lib/time_tracking_web/views/.*(ex)$},
+      ~r{lib/time_tracking_web/templates/.*(eex)$}
     ]
   ]
 

@@ -1,7 +1,7 @@
-defmodule TimeTracking.Endpoint do
+defmodule TimeTrackingWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :time_tracking
 
-  socket "/socket", TimeTracking.UserSocket
+  socket "/socket", TimeTrackingWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -35,5 +35,5 @@ defmodule TimeTracking.Endpoint do
     key: "_time_tracking_key",
     signing_salt: "WaUIRZ45"
 
-  plug TimeTracking.Router
+  plug TimeTrackingWeb.Router
 end

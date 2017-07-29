@@ -1,5 +1,5 @@
 defmodule TimeTracking.PageControllerTest do
-  use TimeTracking.ConnCase
+  use TimeTrackingWeb.ConnCase
 
   @correct_user Application.get_env(:time_tracking, :fastbill_email)
   @correct_password Application.get_env(:time_tracking, :fastbill_token)

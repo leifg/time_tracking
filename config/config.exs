@@ -6,12 +6,12 @@
 use Mix.Config
 
 # Configures the endpoint
-config :time_tracking, TimeTracking.Endpoint,
+config :time_tracking, TimeTrackingWeb.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "EEWzzLxm6nHH+2S23bWXBwVWMnOO2jPpqeSD8iyTLWL82BVpF5w2pXOoPG6+inlX",
   render_errors: [accepts: ~w(html json)],
-  pubsub: [name: TimeTracking.PubSub,
+  pubsub: [name: TimeTrackingWeb.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

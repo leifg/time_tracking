@@ -8,9 +8,9 @@ defmodule TimeTracking do
 
     children = [
       # Start the endpoint when the application starts
-      supervisor(TimeTracking.Endpoint, []),
+      supervisor(TimeTrackingWeb.Endpoint, []),
       # Here you could define other workers and supervisors as children
-      # worker(TimeTracking.Worker, [arg1, arg2, arg3]),
+      # worker(TimeTrackingWeb.Worker, [arg1, arg2, arg3]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
@@ -22,7 +22,7 @@ defmodule TimeTracking do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    TimeTracking.Endpoint.config_change(changed, removed)
+    TimeTrackingWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

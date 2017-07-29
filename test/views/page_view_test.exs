@@ -1,3 +1,3 @@
 defmodule TimeTracking.PageViewTest do
-  use TimeTracking.ConnCase, async: true
+  use TimeTrackingWeb.ConnCase, async: true
 end
