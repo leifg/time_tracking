@@ -2,7 +2,7 @@ defmodule TimeTrackingWeb.Router do
   use TimeTracking.Web, :router
 
   pipeline :api do
-    plug PlugBasicAuth, validation: &AuthHandler.is_authorized/2
+    plug PlugBasicAuth, validation: &AuthHandler.is_authorized?/2
     plug :accepts, ["json"]
   end
 
