@@ -1,7 +1,12 @@
 defmodule AuthHandler do
-  @user Application.get_env(:time_tracking, :fastbill_email)
-  @password Application.get_env(:time_tracking, :fastbill_token)
+  def is_authorized?(user, password) do
+    if user == configured_user() && password == configured_password() do
+      :authorized
+    else
+      :unauthorized
+    end
+  end
 
-  def is_authorized(@user, @password), do: :authorized
-  def is_authorized(_user, _password), do: :unauthorized
+  defp configured_user, do: Application.get_env(:time_tracking, :fastbill_email)
+  defp configured_password, do: Application.get_env(:time_tracking, :fastbill_token)
 end
