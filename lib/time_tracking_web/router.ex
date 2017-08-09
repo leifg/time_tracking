@@ -12,19 +12,19 @@ defmodule TimeTrackingWeb.Router do
     get "/", PageController, :index
   end
 
-  scope "/clients", TimeTracking do
+  scope "/clients", TimeTrackingWeb do
     pipe_through :api
 
     post "/", FastbillController, :create_client
   end
 
-  scope "/projects", TimeTracking do
+  scope "/projects", TimeTrackingWeb do
     pipe_through :api
 
     post "/", FastbillController, :create_project
   end
 
-  scope "/time_slots", TimeTracking do
+  scope "/time_slots", TimeTrackingWeb do
     pipe_through :api
 
     post "/", FastbillController, :create_time_slot
