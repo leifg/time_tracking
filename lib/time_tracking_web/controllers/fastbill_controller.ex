@@ -14,8 +14,8 @@ defmodule TimeTrackingWeb.FastbillController do
     {:ok, fb_project} = find_or_create_project(params["project"])
 
     billable_flag = params["billable"] |> String.downcase |> to_boolean
-    start_time = params["start"] |> TimezoneConverter.convert
-    end_time = params["stop"] |> TimezoneConverter.convert
+    start_time = params["start"] |> TimezoneConverter.convert(timezone())
+    end_time = params["stop"] |> TimezoneConverter.convert(timezone())
     minutes = params["duration_minutes"] |> String.to_integer
     billable_minutes = params["duration_minutes"] |> String.to_integer |> BillableCalculator.calculate(billable_flag)
     api_return = @fastbill_api.create_time_slot(%{client_id: fb_project.client_id, project_id: fb_project.id, date: start_time, start_time: start_time, minutes: minutes, billable_minutes: billable_minutes, end_time: end_time, comment: params["description"]})
@@ -39,6 +39,10 @@ defmodule TimeTrackingWeb.FastbillController do
       res ->
         res
     end
+  end
+
+  defp timezone do
+    Application.get_env(:time_tracking, :fastbill_timezone)
   end
 
   defp to_boolean("true"), do: true
