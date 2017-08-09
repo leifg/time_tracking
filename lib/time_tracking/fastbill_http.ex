@@ -5,9 +5,6 @@ defmodule TimeTracking.Fastbill.Http do
   @endpoint "https://my.fastbill.com/api/1.0/api.php"
   @customer_type "business"
   @headers %{"Accept" => "application/json"}
-  @fastbill_email Application.get_env(:time_tracking, :fastbill_email)
-  @fastbill_token Application.get_env(:time_tracking, :fastbill_token)
-  @auth [basic_auth: {@fastbill_email, @fastbill_token}]
 
   def create_client(%{name: name, external_id: external_id}) do
     HTTPoison.start
@@ -20,7 +17,7 @@ defmodule TimeTracking.Fastbill.Http do
       }
     }
     process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), external_id: external_id, name: name }} end
-    http_call(@endpoint, body, @headers, @auth, process_res)
+    http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def find_client(%{external_id: external_id}) do
@@ -40,7 +37,7 @@ defmodule TimeTracking.Fastbill.Http do
           {:ok, %{id: first_client["CUSTOMER_ID"], external_id: first_client["CUSTOMER_NUMBER"], name: first_client["ORGANIZATION"]}}
       end
     end
-    http_call(@endpoint, body, @headers, @auth, process_res)
+    http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def create_project(%{client_id: client_id, external_id: external_id, name: name}) do
@@ -54,7 +51,7 @@ defmodule TimeTracking.Fastbill.Http do
       }
     }
     process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: external_id, name: name, client_id: client_id }} end
-    http_call(@endpoint, body, @headers, @auth, process_res)
+    http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def find_project(%{client_id: client_id, external_id: external_id}) do
@@ -73,7 +70,7 @@ defmodule TimeTracking.Fastbill.Http do
           {:ok, %{id: project["PROJECT_ID"], external_id: external_id, name: project["PROJECT_NAME"], client_id: client_id}}
       end
     end
-    http_call(@endpoint, body, @headers, @auth, process_res)
+    http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def create_time_slot(%{client_id: client_id, project_id: project_id, date: date, start_time: start_time, end_time: end_time, minutes: minutes, billable_minutes: billable_minutes, comment: comment}) do
@@ -92,7 +89,7 @@ defmodule TimeTracking.Fastbill.Http do
       }
     }
     process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["TIME_ID"]), start_time: start_time, end_time: end_time, minutes: minutes, billable_minutes: billable_minutes}} end
-    http_call(@endpoint, body, @headers, @auth, process_res)
+    http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   defp http_call(endpoint, request_body, headers, auth, process_fun) do
@@ -104,5 +101,17 @@ defmodule TimeTracking.Fastbill.Http do
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, %{message: reason}}
     end
+  end
+
+  defp auth do
+    [basic_auth: {fastbill_email(), fastbill_token()}]
+  end
+
+  defp fastbill_email do
+    Application.get_env(:time_tracking, :fastbill_email)
+  end
+
+  defp fastbill_token do
+    Application.get_env(:time_tracking, :fastbill_token)
   end
 end
