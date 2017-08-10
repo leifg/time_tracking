@@ -1,0 +1,67 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: leifg/time_tracking-base
+        environment:
+          MIX_ENV: test
+    steps:
+      - checkout
+      - run:
+          name: Get Dependencies
+          command: mix deps.get
+      - run:
+          name: Compile
+          command: mix compile
+      - persist_to_workspace:
+          root: /
+          paths:
+            - root/project
+  test:
+    docker:
+      - image: leifg/time_tracking-base
+        environment:
+          MIX_ENV: test
+    steps:
+      - attach_workspace:
+          at: /
+      - run:
+          name: debug
+          command: |
+            ls -lha /root/
+            ls -lha /root/project
+      - run:
+          name: Test
+          command: mix test
+  deploy:
+    docker:
+      - image: leifg/time_tracking-base
+        environment:
+          MIX_ENV: prod
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Get Dependencies
+          command: mix deps.get
+      - run:
+          name: Semantic Release
+          command:  semantic-release -vf -slug leifg/time_tracking -noci || true
+      - run:
+          name: Run Deployment
+          command: script/ci/deploy.sh
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

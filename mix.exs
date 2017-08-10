@@ -3,7 +3,7 @@ defmodule TimeTracking.Mixfile do
 
   def project do
     [app: :time_tracking,
-     version: "0.0.1",
+     version: "0.0.0-development",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
