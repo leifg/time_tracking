@@ -33,4 +33,12 @@ defmodule TimeTracking.PageControllerTest do
       assert conn.status == 200
     end
   end
+
+  describe "GET /not-found" do
+    test "without authorization", %{conn: conn} do
+      assert_raise Phoenix.Router.NoRouteError, fn ->
+        get conn, "/not-found"
+      end
+    end
+  end
 end
