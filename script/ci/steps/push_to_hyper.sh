@@ -4,14 +4,6 @@ NEW_VERSION=$1
 BUILD_NUM=$2
 STARTING_TIMEOUT=2
 
-### To be deleted
-PRODUCTION_COOKIE=dsfasdfasdfasdfsadf
-FASTBILL_EMAIL=leif@leif.io
-FASTBILL_TIMEZONE=Europe/Berlin
-FASTBILL_TOKEN=5ae5f7ede2fc908ee976401141e262bc7jIgq2oMn0TQaVkrN9qCmeVFQakrNfph
-SECRET_KEY_BASE=wYmWM8FKq66vzfkfzMdmdHxWs13h/Z08V+PUVA/BzpRCIMHVeD0L6W+agyvc0Y1i
-### End
-
 NEW_CONTAINER_NAME=timetracking${BUILD_NUM}
 echo "Starting New Container ${NEW_CONTAINER_NAME}"
 
