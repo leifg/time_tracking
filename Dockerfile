@@ -1,7 +1,7 @@
 FROM alpine:3.6
 MAINTAINER Leif Gensert <leif@leif.io>
 
-RUN apk add --no-cache ncurses-libs openssl
+RUN apk add --no-cache ncurses-libs openssl bash
 
 ARG VERSION
 
