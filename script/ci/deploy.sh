@@ -19,7 +19,4 @@ else
 
   echo "Push to Docker Hub"
   ${base_dir}/steps/push_to_docker_hub.sh ${VERSION} ${DOCKER_USER} ${DOCKER_PASS}
-
-  echo "Push to Hyper"
-  ${base_dir}/steps/push_to_hyper.sh ${VERSION} ${CIRCLE_BUILD_NUM}
 fi
