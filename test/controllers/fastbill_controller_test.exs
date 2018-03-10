@@ -4,11 +4,33 @@ defmodule TimeTracking.FastbillControllerTest do
   @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found"}
   @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found"}
 
-  @existing_project %{"id" => "toggl_id_found", "client" => @existing_client, "name" => "Already Existing"}
-  @non_existing_project %{"id" => "toggl_id_not_found", "client" => @existing_client, "name" => "New Project"}
+  @existing_project %{
+    "id" => "toggl_id_found",
+    "client" => @existing_client,
+    "name" => "Already Existing"
+  }
+  @non_existing_project %{
+    "id" => "toggl_id_not_found",
+    "client" => @existing_client,
+    "name" => "New Project"
+  }
 
-  @billable_time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration_minutes" => "501", "billable" => "True", "project" => @existing_project}
-  @non_billable_time_slot %{"description" => "controller test", "start" => "2016-05-08T09:17:53+00:00", "stop" => "2016-05-08T17:39:11+00:00", "duration_minutes" => "501", "billable" => "False", "project" => @existing_project}
+  @billable_time_slot %{
+    "description" => "controller test",
+    "start" => "2016-05-08T09:17:53+00:00",
+    "stop" => "2016-05-08T17:39:11+00:00",
+    "duration_minutes" => "501",
+    "billable" => "True",
+    "project" => @existing_project
+  }
+  @non_billable_time_slot %{
+    "description" => "controller test",
+    "start" => "2016-05-08T09:17:53+00:00",
+    "stop" => "2016-05-08T17:39:11+00:00",
+    "duration_minutes" => "501",
+    "billable" => "False",
+    "project" => @existing_project
+  }
 
   @user Application.get_env(:time_tracking, :fastbill_email)
   @password Application.get_env(:time_tracking, :fastbill_token)
@@ -19,7 +41,7 @@ defmodule TimeTracking.FastbillControllerTest do
       conn:
         put_req_header(conn, "authorization", "Basic " <> Base.encode64("#{@user}:#{@password}"))
         |> put_req_header("accept", "application/json")
-      }
+    }
   end
 
   describe "POST /clients" do

@@ -17,6 +17,18 @@ jobs:
           root: /
           paths:
             - root/project
+
+  lint:
+    docker:
+      - image: leifg/elixir:latest
+        environment:
+          MIX_ENV: test
+    steps:
+      - attach_workspace:
+          at: /
+      - run:
+          name: Check code to be formatted
+          command: mix format --check-formatted --dry-run
   test:
     docker:
       - image: leifg/time_tracking-base
@@ -51,9 +63,12 @@ workflows:
   build-test-deploy:
     jobs:
       - build
-      - test:
+      - lint:
           requires:
             - build
+      - test:
+          requires:
+            - lint
       - deploy:
           requires:
             - test

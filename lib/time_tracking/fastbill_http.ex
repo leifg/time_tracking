@@ -7,7 +7,8 @@ defmodule TimeTracking.Fastbill.Http do
   @headers %{"Accept" => "application/json"}
 
   def create_client(%{name: name, external_id: external_id}) do
-    HTTPoison.start
+    HTTPoison.start()
+
     body = %{
       SERVICE: "customer.create",
       DATA: %{
@@ -16,32 +17,48 @@ defmodule TimeTracking.Fastbill.Http do
         ORGANIZATION: name
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), external_id: external_id, name: name }} end
+
+    process_res = fn res ->
+      {:ok,
+       %{id: to_string(res["RESPONSE"]["CUSTOMER_ID"]), external_id: external_id, name: name}}
+    end
+
     http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def find_client(%{external_id: external_id}) do
-    HTTPoison.start
+    HTTPoison.start()
+
     body = %{
       SERVICE: "customer.get",
       FILTER: %{
-        CUSTOMER_NUMBER: external_id,
+        CUSTOMER_NUMBER: external_id
       }
     }
-    process_res = fn(res) ->
+
+    process_res = fn res ->
       case res["RESPONSE"]["CUSTOMERS"] do
         [] ->
           {:not_found, %{}}
+
         clients ->
           first_client = List.first(clients)
-          {:ok, %{id: first_client["CUSTOMER_ID"], external_id: first_client["CUSTOMER_NUMBER"], name: first_client["ORGANIZATION"]}}
+
+          {:ok,
+           %{
+             id: first_client["CUSTOMER_ID"],
+             external_id: first_client["CUSTOMER_NUMBER"],
+             name: first_client["ORGANIZATION"]
+           }}
       end
     end
+
     http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def create_project(%{client_id: client_id, external_id: external_id, name: name}) do
-    HTTPoison.start
+    HTTPoison.start()
+
     body = %{
       SERVICE: "project.create",
       DATA: %{
@@ -50,31 +67,63 @@ defmodule TimeTracking.Fastbill.Http do
         CUSTOMER_ID: client_id
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["PROJECT_ID"]), external_id: external_id, name: name, client_id: client_id }} end
+
+    process_res = fn res ->
+      {:ok,
+       %{
+         id: to_string(res["RESPONSE"]["PROJECT_ID"]),
+         external_id: external_id,
+         name: name,
+         client_id: client_id
+       }}
+    end
+
     http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   def find_project(%{client_id: client_id, external_id: external_id}) do
-    HTTPoison.start
+    HTTPoison.start()
+
     body = %{
       SERVICE: "project.get",
       FILTER: %{
-        CUSTOMER_ID: client_id,
+        CUSTOMER_ID: client_id
       }
     }
-    process_res = fn(res) ->
-      case Enum.find(res["RESPONSE"]["PROJECTS"], fn(elem) -> elem["PROJECT_NUMBER"] == external_id; end) do
+
+    process_res = fn res ->
+      case Enum.find(res["RESPONSE"]["PROJECTS"], fn elem ->
+             elem["PROJECT_NUMBER"] == external_id
+           end) do
         nil ->
           {:not_found, %{}}
+
         project ->
-          {:ok, %{id: project["PROJECT_ID"], external_id: external_id, name: project["PROJECT_NAME"], client_id: client_id}}
+          {:ok,
+           %{
+             id: project["PROJECT_ID"],
+             external_id: external_id,
+             name: project["PROJECT_NAME"],
+             client_id: client_id
+           }}
       end
     end
+
     http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
-  def create_time_slot(%{client_id: client_id, project_id: project_id, date: date, start_time: start_time, end_time: end_time, minutes: minutes, billable_minutes: billable_minutes, comment: comment}) do
-    HTTPoison.start
+  def create_time_slot(%{
+        client_id: client_id,
+        project_id: project_id,
+        date: date,
+        start_time: start_time,
+        end_time: end_time,
+        minutes: minutes,
+        billable_minutes: billable_minutes,
+        comment: comment
+      }) do
+    HTTPoison.start()
+
     body = %{
       SERVICE: "time.create",
       DATA: %{
@@ -85,19 +134,32 @@ defmodule TimeTracking.Fastbill.Http do
         END_TIME: end_time,
         MINUTES: minutes,
         BILLABLE_MINUTES: billable_minutes,
-        COMMENT: comment,
+        COMMENT: comment
       }
     }
-    process_res = fn(res) -> {:ok, %{id: to_string(res["RESPONSE"]["TIME_ID"]), start_time: start_time, end_time: end_time, minutes: minutes, billable_minutes: billable_minutes}} end
+
+    process_res = fn res ->
+      {:ok,
+       %{
+         id: to_string(res["RESPONSE"]["TIME_ID"]),
+         start_time: start_time,
+         end_time: end_time,
+         minutes: minutes,
+         billable_minutes: billable_minutes
+       }}
+    end
+
     http_call(@endpoint, body, @headers, auth(), process_res)
   end
 
   defp http_call(endpoint, request_body, headers, auth, process_fun) do
-    case HTTPoison.post(endpoint, Poison.encode!(request_body), headers, [hackney: auth]) do
+    case HTTPoison.post(endpoint, Poison.encode!(request_body), headers, hackney: auth) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         process_fun.(Poison.decode!(body))
+
       {:ok, %HTTPoison.Response{status_code: 401}} ->
         {:error, %{message: "unauthorized"}}
+
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, %{message: reason}}
     end

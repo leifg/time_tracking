@@ -22,6 +22,6 @@ defmodule TimeTrackingWeb.ErrorView do
   end
 
   def template_not_found(_template, assigns) do
-    render "500.html", assigns
+    render("500.html", assigns)
   end
 end
