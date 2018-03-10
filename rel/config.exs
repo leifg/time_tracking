@@ -30,7 +30,7 @@ end
 environment :prod do
   set include_erts: true
   set include_src: false
-  set cookie: :"${PRODUCTION_COOKIE}"
+  set cookie: :"${NODE_COOKIE}"
 end
 
 # You may define one or more releases in this file.
