@@ -1,4 +1,4 @@
-FROM leifg/elixir:1.6.3
+FROM leifg/elixir:1.6
 LABEL maintainer="Leif Gensert <leif@leif.io>"
 
 RUN apk add --no-cache libc6-compat build-base curl
