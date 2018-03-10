@@ -1,5 +1,5 @@
-FROM alpine:3.6
-MAINTAINER Leif Gensert <leif@leif.io>
+FROM alpine:3.7
+LABEL maintainer="Leif Gensert <leif@leif.io>"
 
 RUN apk add --no-cache ncurses-libs openssl bash
 
