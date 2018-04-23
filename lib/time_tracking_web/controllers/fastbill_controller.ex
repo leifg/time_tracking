@@ -11,12 +11,11 @@ defmodule TimeTrackingWeb.FastbillController do
   end
 
   def create_time_slot(conn, params) do
-    {:ok, fb_project} = find_or_create_project(params["project"])
-
     billable_flag = params["billable"] |> String.downcase() |> to_boolean
     start_time = params["start"] |> TimezoneConverter.convert(timezone())
     end_time = params["stop"] |> TimezoneConverter.convert(timezone())
     minutes = params["duration_minutes"] |> String.to_integer()
+    description = params["description"]
 
     billable_minutes =
       params["duration_minutes"]
@@ -24,16 +23,29 @@ defmodule TimeTrackingWeb.FastbillController do
       |> BillableCalculator.calculate(billable_flag)
 
     api_return =
-      @fastbill_api.create_time_slot(%{
-        client_id: fb_project.client_id,
-        project_id: fb_project.id,
-        date: start_time,
-        start_time: start_time,
-        minutes: minutes,
-        billable_minutes: billable_minutes,
-        end_time: end_time,
-        comment: params["description"]
-      })
+      case find_or_create_project(params["project"]) do
+        {:ok, fb_project} ->
+          @fastbill_api.create_time_slot(%{
+            client_id: fb_project.client_id,
+            project_id: fb_project.id,
+            date: start_time,
+            start_time: start_time,
+            minutes: minutes,
+            billable_minutes: billable_minutes,
+            end_time: end_time,
+            comment: description
+          })
+
+        {:error, _} ->
+          {:ok,
+           %{
+             id: "-1",
+             start_time: start_time,
+             end_time: end_time,
+             minutes: minutes,
+             billable_minutes: billable_minutes
+           }}
+      end
 
     render_time_slot(conn, api_return)
   end
@@ -66,6 +78,8 @@ defmodule TimeTrackingWeb.FastbillController do
         res
     end
   end
+
+  defp find_or_create_project(_other), do: {:error, :client_not_found}
 
   defp timezone do
     Application.get_env(:time_tracking, :fastbill_timezone)

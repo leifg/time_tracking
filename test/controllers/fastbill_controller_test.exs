@@ -4,6 +4,10 @@ defmodule TimeTracking.FastbillControllerTest do
   @existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_found"}
   @non_existing_client %{"name" => "Shaidy & Co", "id" => "toggl_id_not_found"}
 
+  @non_client_project %{
+    "id" => "toggl_id_found",
+    "name" => "No Client"
+  }
   @existing_project %{
     "id" => "toggl_id_found",
     "client" => @existing_client,
@@ -31,6 +35,14 @@ defmodule TimeTracking.FastbillControllerTest do
     "billable" => "False",
     "project" => @existing_project
   }
+  @non_client_time_slot %{
+    "description" => "controller test",
+    "start" => "2016-05-08T09:17:53+00:00",
+    "stop" => "2016-05-08T17:39:11+00:00",
+    "duration_minutes" => "501",
+    "billable" => "False",
+    "project" => @non_client_project
+  }
 
   @user Application.get_env(:time_tracking, :fastbill_email)
   @password Application.get_env(:time_tracking, :fastbill_token)
@@ -45,7 +57,6 @@ defmodule TimeTracking.FastbillControllerTest do
   end
 
   describe "POST /clients" do
-    # skip setup by leaving out the options
     test "does not lett unauthoized users pass for creation of client" do
       conn = post(build_conn(), "/clients", @non_existing_client)
       assert conn.state == :sent
@@ -68,7 +79,6 @@ defmodule TimeTracking.FastbillControllerTest do
   end
 
   describe "POST /projects" do
-    # skip setup by leaving out the options
     test "does not lett unauthoized users pass for creation of project" do
       conn = post(build_conn(), "/projects", @non_existing_project)
       assert conn.state == :sent
@@ -92,11 +102,16 @@ defmodule TimeTracking.FastbillControllerTest do
   end
 
   describe "POST /time_slots" do
-    # skip setup by leaving out the options
-    test "does not lett unauthoized users pass for creation of time slot" do
+    test "does not let unauthoized users pass for creation of time slot" do
       conn = post(build_conn(), "/time_slots", @billable_time_slot)
       assert conn.state == :sent
       assert conn.status == 401
+    end
+
+    test "returns 200 on empty client", %{conn: conn} do
+      conn = post(conn, "/time_slots", @non_client_time_slot)
+      assert conn.state == :sent
+      assert conn.status == 200
     end
 
     test "creates billable time slot", %{conn: conn} do
