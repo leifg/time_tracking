@@ -33,11 +33,11 @@ defmodule TimeTracking.Mixfile do
       {:phoenix, "~> 1.3"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:exvcr, "~> 0.7", only: :test},
+      {:exvcr, "~> 0.10", only: :test},
       {:cowboy, "~> 1.0"},
-      {:httpoison, "~> 0.9"},
+      {:httpoison, "~> 1.1"},
       {:plug_basic_auth, "~> 1.1"},
-      {:timex, "~> 2.2"},
+      {:timex, "~> 3.2"},
       {:distillery, "~> 1.4"}
     ]
   end
