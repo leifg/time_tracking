@@ -38,7 +38,7 @@ defmodule TimeTracking.Mixfile do
       {:httpoison, "~> 1.1"},
       {:plug_basic_auth, "~> 1.1"},
       {:timex, "~> 3.2"},
-      {:distillery, "~> 1.4"}
+      {:distillery, "~> 2.1"}
     ]
   end
 end
